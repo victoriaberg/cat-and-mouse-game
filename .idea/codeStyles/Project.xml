@@ -166,8 +166,6 @@
     <codeStyleSettings language="JAVA">
       <option name="KEEP_LINE_BREAKS" value="false" />
       <option name="KEEP_CONTROL_STATEMENT_IN_ONE_LINE" value="false" />
-      <option name="CLASS_BRACE_STYLE" value="2" />
-      <option name="METHOD_BRACE_STYLE" value="5" />
       <option name="ALIGN_MULTILINE_PARAMETERS_IN_CALLS" value="true" />
       <option name="ALIGN_MULTILINE_BINARY_OPERATION" value="true" />
       <option name="ALIGN_MULTILINE_ASSIGNMENT" value="true" />
