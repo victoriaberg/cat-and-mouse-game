@@ -1,12 +1,14 @@
 package se.liu.vicbe988.background;
 
+import se.liu.vicbe988.entity.Player;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable{
     static final int STANDARD_TILE_SIZE = 16; // 16x16 standard tile
     static final int SCALE = 3; // Original scale
-    static final int TILE_SIZE = STANDARD_TILE_SIZE * SCALE; // 48x48
+    public static final int TILE_SIZE = STANDARD_TILE_SIZE * SCALE; // 48x48
     static final int MAX_SCREEN_COL = 16;
     static final int MAX_SCREEN_ROW = 12;
     static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL; // 768 pixels
@@ -18,6 +20,7 @@ public class GamePanel extends JPanel implements Runnable{
     int playerX = 100;
     int playerY = 100;
     int playerSpeed = 4; // Pixels
+    Player player = new Player(this, keyHandler); // Gives this class and key handler
 
     public GamePanel() {
 	// Set size of JPanel class
@@ -63,25 +66,13 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update() {
-	if(keyHandler.up) { // If true make player go up
-	    playerY -= playerSpeed;
-	}
-	if(keyHandler.left) {
-	    playerX -= playerSpeed;
-	}
-	if(keyHandler.down) {
-	    playerY += playerSpeed;
-	}
-	if(keyHandler.right) {
-	    playerX += playerSpeed;
-	}
+	player.update();	// Calls method from player class
     }
 
     public void paintComponent(Graphics g) {
 	super.paintComponent(g);
 	Graphics2D g2 = (Graphics2D)g; // Change g to 2D
-	g2.setColor(Color.BLUE);
-	g2.fillRect(playerX, playerY, TILE_SIZE, TILE_SIZE);
+	player.draw(g2);	// Pass the g2 to be able to draw
 	g2.dispose();
     }
 }
