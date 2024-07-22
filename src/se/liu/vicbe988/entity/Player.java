@@ -97,14 +97,14 @@ public class Player extends Entity {
 
     public void getCatImage() {
 	try {
-	    up1 = ImageIO.read(getClass().getResourceAsStream("/images/Up1.png"));
-	    up2 = ImageIO.read(getClass().getResourceAsStream("/images/Up2.png"));
-	    left1 = ImageIO.read(getClass().getResourceAsStream("/images/Left1.png"));
-	    left2 = ImageIO.read(getClass().getResourceAsStream("/images/Left2.png"));
-	    down1 = ImageIO.read(getClass().getResourceAsStream("/images/Down1.png"));
-	    down2 = ImageIO.read(getClass().getResourceAsStream("/images/Down2.png"));
-	    right1 = ImageIO.read(getClass().getResourceAsStream("/images/Right1.png"));
-	    right2 = ImageIO.read(getClass().getResourceAsStream("/images/Right2.png"));
+	    up1 = ImageIO.read(getClass().getResourceAsStream("/images/player/Up1.png"));
+	    up2 = ImageIO.read(getClass().getResourceAsStream("/images/player/Up2.png"));
+	    left1 = ImageIO.read(getClass().getResourceAsStream("/images/player/Left1.png"));
+	    left2 = ImageIO.read(getClass().getResourceAsStream("/images/player/Left2.png"));
+	    down1 = ImageIO.read(getClass().getResourceAsStream("/images/player/Down1.png"));
+	    down2 = ImageIO.read(getClass().getResourceAsStream("/images/player/Down2.png"));
+	    right1 = ImageIO.read(getClass().getResourceAsStream("/images/player/Right1.png"));
+	    right2 = ImageIO.read(getClass().getResourceAsStream("/images/player/Right2.png"));
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
