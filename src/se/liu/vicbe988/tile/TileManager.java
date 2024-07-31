@@ -48,7 +48,7 @@ public class TileManager {
 
     public void loadMap() {
 	try {
-	    InputStream inputStream = getClass().getResourceAsStream("/images/maps/map0");
+	    InputStream inputStream = getClass().getResourceAsStream("/images/maps/map1");
 	    // Using the bufferedreader to read the context of our map
 	    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 	    int col = 0;
