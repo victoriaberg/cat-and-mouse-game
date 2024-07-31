@@ -12,16 +12,23 @@ public class Player extends Entity {
     GamePanel gamePanel;
     KeyHandler keyHandler;
 
+    public final int screenX;
+    public final int screenY;
+
     public Player(final GamePanel gamePanel, final KeyHandler keyHandler) {
 	this.gamePanel = gamePanel;
 	this.keyHandler = keyHandler;
+
+	screenX = gamePanel.SCREEN_WIDTH / 2 - (gamePanel.TILE_SIZE / 2);
+	screenY = gamePanel.SCREEN_HEIGHT / 2 - (gamePanel.TILE_SIZE / 2);
+
 	setDefaultValues();
 	getCatImage();
     }
 
     public void setDefaultValues() {
-	x = 100;
-	y = 100;
+	mapX = gamePanel.TILE_SIZE * (gamePanel.SCREEN_WIDTH / 2);
+	mapY = gamePanel.TILE_SIZE * (gamePanel.SCREEN_HEIGHT / 2);
 	speed = 4;
 	direction = "up";
     }
@@ -31,19 +38,19 @@ public class Player extends Entity {
 	boolean keyPressed = false;	// If key is not pressed, don't change images
 	if (keyHandler.up) {
 	    direction = "up";
-	    y -= speed;
+	    mapY -= speed;
 	    keyPressed = true;
 	} else if (keyHandler.left) {
 	    direction = "left";
-	    x -= speed;
+	    mapX -= speed;
 	    keyPressed = true;
 	} else if (keyHandler.down) {
 	    direction = "down";
-	    y += speed;
+	    mapY += speed;
 	    keyPressed = true;
 	} else if (keyHandler.right) {
 	    direction = "right";
-	    x += speed;
+	    mapX += speed;
 	    keyPressed = true;
 	}
 
@@ -92,7 +99,7 @@ public class Player extends Entity {
 		}
 		break;
 	}
-	g2.drawImage(bufferedImage, x, y, gamePanel.TILE_SIZE, gamePanel.TILE_SIZE, null);
+	g2.drawImage(bufferedImage, screenX, screenY, gamePanel.TILE_SIZE, gamePanel.TILE_SIZE, null);
     }
 
     public void getCatImage() {
