@@ -35,42 +35,45 @@ public class Player extends Entity {
 
     // Update method gets called 60 times/second (60 FPS) in GamePanel run function
     public void update() {
-	boolean keyPressed = false;	// If key is not pressed, don't change images
-	if (keyHandler.up) {
-	    direction = "up";
-	    mapY -= speed;
-	    keyPressed = true;
-	} else if (keyHandler.left) {
-	    direction = "left";
-	    mapX -= speed;
-	    keyPressed = true;
-	} else if (keyHandler.down) {
-	    direction = "down";
-	    mapY += speed;
-	    keyPressed = true;
-	} else if (keyHandler.right) {
-	    direction = "right";
-	    mapX += speed;
-	    keyPressed = true;
-	}
-
-	if (keyPressed) {
-	    spriteCounter++;
-	    if (spriteCounter > 10) {    // Every 10 frames the cat image changes
-		if (spriteNumber == 1) {
-		    spriteNumber = 2;
-		} else if (spriteNumber == 2) {
-		    spriteNumber = 1;
-		}
-		spriteCounter = 0;
-	    }
-	}
+//	boolean keyPressed = false;	// If key is not pressed, don't change images
+//	if (keyHandler.up) {
+//	    direction = "up";
+//	    mapY -= speed;
+//	    keyPressed = true;
+//	} else if (keyHandler.left) {
+//	    direction = "left";
+//	    mapX -= speed;
+//	    keyPressed = true;
+//	} else if (keyHandler.down) {
+//	    direction = "down";
+//	    mapY += speed;
+//	    keyPressed = true;
+//	} else if (keyHandler.right) {
+//	    direction = "right";
+//	    mapX += speed;
+//	    keyPressed = true;
+//	}
+//
+//	if (keyPressed) {
+//	    spriteCounter++;
+//	    if (spriteCounter > 10) {    // Every 10 frames the cat image changes
+//		if (spriteNumber == 1) {
+//		    spriteNumber = 2;
+//		} else if (spriteNumber == 2) {
+//		    spriteNumber = 1;
+//		}
+//		spriteCounter = 0;
+//	    }
+//	}
     }
 
     public void draw(Graphics2D g2) {
 	BufferedImage bufferedImage = null;
+	boolean keyPressed = false;
 	switch (direction) {
 	    case "up":
+		direction = "up";
+		keyPressed = true;
 		if (spriteNumber == 1) {
 		    bufferedImage = up1;
 		} else if (spriteNumber == 2) {
@@ -78,6 +81,8 @@ public class Player extends Entity {
 		}
 		break;
 	    case "left":
+		direction = "left";
+		keyPressed = true;
 		if (spriteNumber == 1) {
 		    bufferedImage = left1;
 		} else if (spriteNumber == 2) {
@@ -85,6 +90,8 @@ public class Player extends Entity {
 		}
 		break;
 	    case "down":
+		direction = "down";
+		keyPressed = true;
 		if (spriteNumber == 1) {
 		    bufferedImage = down1;
 		} else if (spriteNumber == 2) {
@@ -92,6 +99,8 @@ public class Player extends Entity {
 		}
 		break;
 	    case "right":
+		direction = "right";
+		keyPressed = true;
 		if (spriteNumber == 1) {
 		    bufferedImage = right1;
 		} else if (spriteNumber == 2) {
