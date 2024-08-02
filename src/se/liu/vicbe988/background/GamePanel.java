@@ -2,6 +2,8 @@ package se.liu.vicbe988.background;
 
 import se.liu.vicbe988.entity.Player;
 import se.liu.vicbe988.tile.TileManager;
+import se.liu.vicbe988.entity.Entity;
+import se.liu.vicbe988.background.KeyHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,11 +16,15 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int MAX_SCREEN_ROW = 12;
     public static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL; // 768 pixels
     public static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW; // 576 pixels
+    public final int MAX_WORLD_COL = 39;
+    public final int MAX_WORLD_ROW = 39;
+    public final int worldWidth = TILE_SIZE / MAX_WORLD_COL;
+    public final int worldHeight = TILE_SIZE / MAX_WORLD_ROW;
 
     int FPS = 60;
-    KeyHandler keyHandler = new KeyHandler();
+    public KeyHandler keyHandler = new KeyHandler();
     volatile Thread gameThread = null;
-    Player player = new Player(this, keyHandler); // Gives this class and key handler
+    public Player player = new Player(this, keyHandler); // Gives this class and key handler
     TileManager tileManager = new TileManager(this);
 
     public GamePanel() {
@@ -65,7 +71,34 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update() {
-	player.update();	// Calls method from player class
+//	player.update();	// Calls method from player class/**/
+//	this.setLocation(this.getLocation().x + 1, this.getLocation().y);
+	boolean keyPressed = false;	// If key is not pressed, don't change images
+	if (keyHandler.up) {
+	    this.setLocation(this.getLocation().x, this.getLocation().y + 1);
+	    keyPressed = true;
+	} else if (keyHandler.left) {
+	    this.setLocation(this.getLocation().x + 1, this.getLocation().y);
+	    keyPressed = true;
+	} else if (keyHandler.down) {
+	    this.setLocation(this.getLocation().x, this.getLocation().y - 1);
+	    keyPressed = true;
+	} else if (keyHandler.right) {
+	    this.setLocation(this.getLocation().x - 1, this.getLocation().y);
+	    keyPressed = true;
+	}
+
+//	if (keyPressed) {
+//	    spriteCounter++;
+//	    if (spriteCounter > 10) {    // Every 10 frames the cat image changes
+//		if (spriteNumber == 1) {
+//		    spriteNumber = 2;
+//		} else if (spriteNumber == 2) {
+//		    spriteNumber = 1;
+//		}
+//		spriteCounter = 0;
+//	    }
+//	}
     }
 
     public void paintComponent(Graphics g) {
