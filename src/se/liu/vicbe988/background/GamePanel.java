@@ -71,34 +71,16 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update() {
-//	player.update();	// Calls method from player class/**/
-//	this.setLocation(this.getLocation().x + 1, this.getLocation().y);
-	boolean keyPressed = false;	// If key is not pressed, don't change images
+	player.update();	// Calls method from player class/**/
 	if (keyHandler.up) {
-	    this.setLocation(this.getLocation().x, this.getLocation().y + 1);
-	    keyPressed = true;
+	    this.setLocation(this.getLocation().x, this.getLocation().y + 4);
 	} else if (keyHandler.left) {
-	    this.setLocation(this.getLocation().x + 1, this.getLocation().y);
-	    keyPressed = true;
+	    this.setLocation(this.getLocation().x + 4, this.getLocation().y);
 	} else if (keyHandler.down) {
-	    this.setLocation(this.getLocation().x, this.getLocation().y - 1);
-	    keyPressed = true;
+	    this.setLocation(this.getLocation().x, this.getLocation().y - 4);
 	} else if (keyHandler.right) {
-	    this.setLocation(this.getLocation().x - 1, this.getLocation().y);
-	    keyPressed = true;
+	    this.setLocation(this.getLocation().x - 4, this.getLocation().y);
 	}
-
-//	if (keyPressed) {
-//	    spriteCounter++;
-//	    if (spriteCounter > 10) {    // Every 10 frames the cat image changes
-//		if (spriteNumber == 1) {
-//		    spriteNumber = 2;
-//		} else if (spriteNumber == 2) {
-//		    spriteNumber = 1;
-//		}
-//		spriteCounter = 0;
-//	    }
-//	}
     }
 
     public void paintComponent(Graphics g) {
