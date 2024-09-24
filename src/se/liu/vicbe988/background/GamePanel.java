@@ -2,8 +2,6 @@ package se.liu.vicbe988.background;
 
 import se.liu.vicbe988.entity.Player;
 import se.liu.vicbe988.tile.TileManager;
-import se.liu.vicbe988.entity.Entity;
-import se.liu.vicbe988.background.KeyHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,12 +16,10 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW; // 576 pixels
     public final int MAX_WORLD_COL = 39;
     public final int MAX_WORLD_ROW = 39;
-    public final int worldWidth = TILE_SIZE / MAX_WORLD_COL;
-    public final int worldHeight = TILE_SIZE / MAX_WORLD_ROW;
 
     int FPS = 60;
     public KeyHandler keyHandler = new KeyHandler();
-    volatile Thread gameThread = null;
+    Thread gameThread = null;
     public Player player = new Player(this, keyHandler); // Gives this class and key handler
     TileManager tileManager = new TileManager(this);
 
@@ -72,17 +68,9 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void update() {
 	player.update();	// Calls method from player class/**/
-	if (keyHandler.up) {
-	    this.setLocation(this.getLocation().x, this.getLocation().y + 4);
-	} else if (keyHandler.left) {
-	    this.setLocation(this.getLocation().x + 4, this.getLocation().y);
-	} else if (keyHandler.down) {
-	    this.setLocation(this.getLocation().x, this.getLocation().y - 4);
-	} else if (keyHandler.right) {
-	    this.setLocation(this.getLocation().x - 4, this.getLocation().y);
-	}
-    }
 
+    }
+    @Override
     public void paintComponent(Graphics g) {
 	super.paintComponent(g);
 	Graphics2D g2 = (Graphics2D)g; // Change g to 2D
