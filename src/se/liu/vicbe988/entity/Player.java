@@ -12,8 +12,8 @@ public class Player extends Entity {
     GamePanel gamePanel;
     KeyHandler keyHandler;
 
-    public final int screenX;
-    public final int screenY;
+    public int worldX, worldY;	// Cats position in the map
+    public final int screenX, screenY; // Cats position on the screen
 
     public Player(final GamePanel gamePanel, final KeyHandler keyHandler) {
 	this.gamePanel = gamePanel;
@@ -38,19 +38,19 @@ public class Player extends Entity {
 	boolean keyPressed = false;	// If key is not pressed, don't change images
 	if (keyHandler.up) {
 	    direction = "up";
-	    mapY -= speed;
+	    worldY -= speed;
 	    keyPressed = true;
 	} else if (keyHandler.left) {
 	    direction = "left";
-	    mapX -= speed;
+	    worldX -= speed;
 	    keyPressed = true;
 	} else if (keyHandler.down) {
 	    direction = "down";
-	    mapY += speed;
+	    worldY += speed;
 	    keyPressed = true;
 	} else if (keyHandler.right) {
 	    direction = "right";
-	    mapX += speed;
+	    worldX += speed;
 	    keyPressed = true;
 	}
 
