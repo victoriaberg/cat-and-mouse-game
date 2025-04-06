@@ -2,6 +2,7 @@ package se.liu.vicbe988.background;
 
 import se.liu.vicbe988.entity.Player;
 import se.liu.vicbe988.tile.TileManager;
+import se.liu.vicbe988.entity.Mouse;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,13 +21,15 @@ public class GamePanel extends JPanel implements Runnable{
     int FPS = 60;
     public KeyHandler keyHandler = new KeyHandler();
     Thread gameThread = null;
-    public Player player = new Player(this, keyHandler); // Gives this class and key handler
+    public CollisionControll collisionControll = new CollisionControll(this);
+    public Player player = new Player(this, keyHandler);
+    public Mouse mouse = new Mouse(this, keyHandler, 10 * TILE_SIZE, 10 * TILE_SIZE);
     TileManager tileManager = new TileManager(this);
 
     public GamePanel() {
 	// Set size of JPanel class
 	this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
-	this.setBackground(Color.GREEN);
+	this.setBackground(Color.BLACK);
 	this.setDoubleBuffered(true); // can improve game rendering performance
 	this.addKeyListener(keyHandler); // Listenes for pressed key
 	this.setFocusable(true); // Focused to recieve key
@@ -68,13 +71,14 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void update() {
 	player.update();	// Calls method from player class/**/
-
+//	mouse.update();
     }
     @Override
     public void paintComponent(Graphics g) {
 	super.paintComponent(g);
 	Graphics2D g2 = (Graphics2D)g; // Change g to 2D
 	tileManager.draw(g2);	// Draw background first
+	mouse.draw(g2);
 	player.draw(g2);	// Pass the g2 to be able to draw
 	g2.dispose();
     }
