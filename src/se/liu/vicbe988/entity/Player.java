@@ -12,6 +12,7 @@ public class Player extends Entity {
     GamePanel gamePanel;
     KeyHandler keyHandler;
 
+    public BufferedImage up1, up2, left1, left2, down1, down2, right1, right2;
     public int worldX, worldY;	// Cats position in the map
     public final int screenX, screenY; // Cats position on the screen
 
@@ -22,39 +23,63 @@ public class Player extends Entity {
 	screenX = gamePanel.SCREEN_WIDTH / 2 - (gamePanel.TILE_SIZE / 2);
 	screenY = gamePanel.SCREEN_HEIGHT / 2 - (gamePanel.TILE_SIZE / 2);
 
+	solidArea = new Rectangle(8, 16, 32, 32); // solid area for player, solid square at the bottom of the player
+
 	setDefaultValues();
 	getCatImage();
     }
 
     public void setDefaultValues() {
-	mapX = gamePanel.SCREEN_WIDTH / 2;
-	mapY = gamePanel.SCREEN_HEIGHT / 2;
+	mapX = (gamePanel.MAX_WORLD_COL * gamePanel.TILE_SIZE) / 2;
+	mapY = (gamePanel.MAX_WORLD_ROW * gamePanel.TILE_SIZE) / 2;
 	speed = 4;
 	direction = "up";
     }
 
     // Update method gets called 60 times/second (60 FPS) in GamePanel run function
     public void update() {
-	boolean keyPressed = false;	// If key is not pressed, don't change images
+	boolean keyPressed = false;  // If key is not pressed, don't change images
+
+	// Handle key presses and set direction
 	if (keyHandler.up) {
 	    direction = "up";
-	    worldY -= speed;
 	    keyPressed = true;
 	} else if (keyHandler.left) {
 	    direction = "left";
-	    worldX -= speed;
 	    keyPressed = true;
 	} else if (keyHandler.down) {
 	    direction = "down";
-	    worldY += speed;
 	    keyPressed = true;
 	} else if (keyHandler.right) {
 	    direction = "right";
-	    worldX += speed;
 	    keyPressed = true;
 	}
 
+	// Only proceed with movement if a key was pressed
 	if (keyPressed) {
+	    // Check tile collision
+	    collisionOn = false;
+	    gamePanel.collisionControll.checkTile(this);
+//	    System.out.println(collisionOn);
+	    // Move player if no collision detected
+	    if (!collisionOn) {
+		switch (direction) {
+		    case "up":
+			mapY -= speed;
+			break;
+		    case "down":
+			mapY += speed;
+			break;
+		    case "left":
+			mapX -= speed;
+			break;
+		    case "right":
+			mapX += speed;
+			break;
+		}
+	    }
+
+	    // Update animation
 	    spriteCounter++;
 	    if (spriteCounter > 10) {    // Every 10 frames the cat image changes
 		if (spriteNumber == 1) {
@@ -108,7 +133,7 @@ public class Player extends Entity {
 		}
 		break;
 	}
-	g2.drawImage(bufferedImage, mapX, mapY, gamePanel.TILE_SIZE, gamePanel.TILE_SIZE, null);
+	g2.drawImage(bufferedImage, screenX, screenY, gamePanel.TILE_SIZE, gamePanel.TILE_SIZE, null);
     }
 
     public void getCatImage() {
