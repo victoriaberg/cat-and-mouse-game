@@ -24,7 +24,8 @@ public class GamePanel extends JPanel implements Runnable{
     public CollisionControll collisionControll = new CollisionControll(this);
     public Player player = new Player(this, keyHandler);
     public Mouse mouse = new Mouse(this, keyHandler, 10 * TILE_SIZE, 10 * TILE_SIZE);
-    TileManager tileManager = new TileManager(this);
+    public TileManager tileManager = new TileManager(this);
+    public boolean hasWon = false;
 
     public GamePanel() {
 	// Set size of JPanel class
@@ -70,16 +71,35 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update() {
-	player.update();	// Calls method from player class/**/
-//	mouse.update();
+	player.update();
+	mouse.update();
+
+	Rectangle playerRect = new Rectangle(player.mapX + player.solidArea.x, player.mapY + player.solidArea.y,
+		player.solidArea.width, player.solidArea.height
+	);
+	Rectangle mouseRect = new Rectangle(mouse.mapX + mouse.solidArea.x, mouse.mapY + mouse.solidArea.y,
+		mouse.solidArea.width, mouse.solidArea.height
+	);
+	if (playerRect.intersects(mouseRect)) {	// If the cat touches the mouse
+	    hasWon = true;
+	}
     }
+
     @Override
     public void paintComponent(Graphics g) {
 	super.paintComponent(g);
 	Graphics2D g2 = (Graphics2D)g; // Change g to 2D
 	tileManager.draw(g2);	// Draw background first
-	mouse.draw(g2);
-	player.draw(g2);	// Pass the g2 to be able to draw
+	mouse.draw(g2);		// Draw player and mouse, pass g2 to be able to draw
+	player.draw(g2);
+	if (hasWon) {
+	    g2.setColor(Color.WHITE);
+	    g2.setFont(new Font("Arial", Font.BOLD, 48));
+	    String text = "You Won!";
+	    int x = (getWidth() - g2.getFontMetrics().stringWidth(text)) / 2; // Center text
+	    int y = getHeight() / 2;
+	    g2.drawString(text, x, y);
+	}
 	g2.dispose();
     }
 }

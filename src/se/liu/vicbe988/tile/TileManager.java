@@ -87,9 +87,6 @@ public class TileManager {
 	int playerScreenX = gamePanel.player.screenX;
 	int playerScreenY = gamePanel.player.screenY;
 
-//	int mouseWorldX = gamePanel.mouse.mapX;
-//	int mouseWorldY = gamePanel.mouse.mapY;
-//
 	for (int worldCol = 0; worldCol < gamePanel.MAX_WORLD_COL; worldCol++) {
 	    for (int worldRow = 0; worldRow < gamePanel.MAX_WORLD_ROW; worldRow++) {
 		int tileNum = mapTileNum[worldCol][worldRow];
@@ -107,9 +104,6 @@ public class TileManager {
 
 		}
 	    }
-	}
-	if (gamePanel.mouse != null) {
-//	    gamePanel.mouse.draw(g2);
 	}
     }
 }
