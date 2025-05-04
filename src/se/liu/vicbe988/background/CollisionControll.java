@@ -29,8 +29,6 @@ public class CollisionControll {
 		entityTopRow = (entityTopWorldY - entity.speed) / gamePanel.TILE_SIZE;
 		tileNum1 = gamePanel.tileManager.mapTileNum[entityLeftCol][entityTopRow];
 		tileNum2 = gamePanel.tileManager.mapTileNum[entityRightCol][entityTopRow];
-		System.out.println("Up: Checking tiles [" + entityLeftCol + "][" + entityTopRow + "]=" + tileNum1 +
-				   ", [" + entityRightCol + "][" + entityTopRow + "]=" + tileNum2);
 		if (gamePanel.tileManager.tile[tileNum1].collision || gamePanel.tileManager.tile[tileNum2].collision) {
 		    entity.collisionOn = true;
 		}

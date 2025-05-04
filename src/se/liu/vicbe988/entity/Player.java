@@ -13,7 +13,7 @@ public class Player extends Entity {
     KeyHandler keyHandler;
 
     public BufferedImage up1, up2, left1, left2, down1, down2, right1, right2;
-    public int worldX, worldY;	// Cats position in the map
+    public int worldX, worldY;	// Cats position on the map
     public final int screenX, screenY; // Cats position on the screen
 
     public Player(final GamePanel gamePanel, final KeyHandler keyHandler) {
@@ -39,8 +39,10 @@ public class Player extends Entity {
     // Update method gets called 60 times/second (60 FPS) in GamePanel run function
     public void update() {
 	boolean keyPressed = false;  // If key is not pressed, don't change images
+	if (gamePanel.hasWon) {
+	    return;
+	}
 
-	// Handle key presses and set direction
 	if (keyHandler.up) {
 	    direction = "up";
 	    keyPressed = true;
@@ -57,12 +59,10 @@ public class Player extends Entity {
 
 	// Only proceed with movement if a key was pressed
 	if (keyPressed) {
-	    // Check tile collision
 	    collisionOn = false;
 	    gamePanel.collisionControll.checkTile(this);
 //	    System.out.println(collisionOn);
-	    // Move player if no collision detected
-	    if (!collisionOn) {
+	    if (!collisionOn) {	// If there is no collision, move player
 		switch (direction) {
 		    case "up":
 			mapY -= speed;
@@ -95,6 +95,7 @@ public class Player extends Entity {
     public void draw(Graphics2D g2) {
 	BufferedImage bufferedImage = null;
 	boolean keyPressed = false;
+	// Make change between player sprites
 	switch (direction) {
 	    case "up":
 		direction = "up";
