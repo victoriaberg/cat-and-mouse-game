@@ -75,7 +75,7 @@ public class TileManager {
 		row++;
 	    }
 	    bufferedReader.close();
-	} catch (Exception e) {
+	} catch (IOException e) {
 	    e.printStackTrace();
 	}
     }
