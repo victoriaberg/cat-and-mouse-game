@@ -3,8 +3,7 @@ package se.liu.vicbe988.entity;
 import java.awt.*;
 
 public abstract class Entity { // Abstract parent class for characters to eg. prevent invalid object creation
-    public int mapX, mapY;
-    public int speed;
+    public int mapX, mapY, speed;
     public Direction direction;
     public int spriteCounter = 0;
     public int spriteNumber = 1;
