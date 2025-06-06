@@ -17,16 +17,16 @@ public class CollisionControll {
 	int entityTopWorldY = entity.getMapY() + entity.getSolidArea().y;
 	int entityBottomWorldY = entity.getMapY() + entity.getSolidArea().y + entity.getSolidArea().height;
 
-	int entityLeftCol = entityLeftWorldX/gamePanel.TILE_SIZE;
-	int entityRightCol = entityRightWorldX/gamePanel.TILE_SIZE;
-	int entityTopRow = entityTopWorldY/gamePanel.TILE_SIZE;
-	int entityBottomRow = entityBottomWorldY/gamePanel.TILE_SIZE;
+	int entityLeftCol = entityLeftWorldX/GamePanel.TILE_SIZE;
+	int entityRightCol = entityRightWorldX/GamePanel.TILE_SIZE;
+	int entityTopRow = entityTopWorldY/GamePanel.TILE_SIZE;
+	int entityBottomRow = entityBottomWorldY/GamePanel.TILE_SIZE;
 
 	int tileNum1, tileNum2;
 
 	switch (entity.direction) {
 	    case UP:
-		entityTopRow = (entityTopWorldY - entity.getSpeed()) / gamePanel.TILE_SIZE;
+		entityTopRow = (entityTopWorldY - entity.getSpeed()) / GamePanel.TILE_SIZE;
 		tileNum1 = gamePanel.tileManager.mapTileNum[entityLeftCol][entityTopRow];
 		tileNum2 = gamePanel.tileManager.mapTileNum[entityRightCol][entityTopRow];
 		if (gamePanel.tileManager.tile[tileNum1].collision || gamePanel.tileManager.tile[tileNum2].collision) {
@@ -34,7 +34,7 @@ public class CollisionControll {
 		}
 		break;
 	    case DOWN:
-		entityBottomRow = (entityBottomWorldY + entity.getSpeed())/gamePanel.TILE_SIZE;
+		entityBottomRow = (entityBottomWorldY + entity.getSpeed())/GamePanel.TILE_SIZE;
 		tileNum1 = gamePanel.tileManager.mapTileNum[entityLeftCol][entityBottomRow];
 		tileNum2 = gamePanel.tileManager.mapTileNum[entityRightCol][entityBottomRow];
 		if (gamePanel.tileManager.tile[tileNum1].collision || gamePanel.tileManager.tile[tileNum2].collision) {
@@ -42,7 +42,7 @@ public class CollisionControll {
 		}
 		break;
 	    case LEFT:
-		entityLeftCol = (entityLeftWorldX - entity.getSpeed())/gamePanel.TILE_SIZE;
+		entityLeftCol = (entityLeftWorldX - entity.getSpeed())/GamePanel.TILE_SIZE;
 		tileNum1 = gamePanel.tileManager.mapTileNum[entityLeftCol][entityTopRow];
 		tileNum2 = gamePanel.tileManager.mapTileNum[entityLeftCol][entityBottomRow];
 		if (gamePanel.tileManager.tile[tileNum1].collision || gamePanel.tileManager.tile[tileNum2].collision) {
@@ -50,7 +50,7 @@ public class CollisionControll {
 		}
 		break;
 	    case RIGHT:
-		entityRightCol = (entityRightWorldX + entity.getSpeed())/gamePanel.TILE_SIZE;
+		entityRightCol = (entityRightWorldX + entity.getSpeed())/GamePanel.TILE_SIZE;
 		tileNum1 = gamePanel.tileManager.mapTileNum[entityRightCol][entityTopRow];
 		tileNum2 = gamePanel.tileManager.mapTileNum[entityRightCol][entityBottomRow];
 		if (gamePanel.tileManager.tile[tileNum1].collision || gamePanel.tileManager.tile[tileNum2].collision) {
