@@ -14,7 +14,6 @@ public class Mouse extends Entity {
     KeyHandler keyHandler;
     public BufferedImage mouse1;
     private static final Direction[] DIRECTIONS = Direction.values();
-    private Random random;
 
     public Mouse(final GamePanel gamePanel, final KeyHandler keyHandler, int mapX, int mapY) {
 	this.gamePanel = gamePanel;
@@ -22,7 +21,7 @@ public class Mouse extends Entity {
 	this.mapX = mapX;
 	this.mapY = mapY;
 	setSolidArea(new Rectangle(8, 16, 32, 32));
-	random = new Random();
+	Random random = new Random();
 	setSpeed(2);
 	getMouseImage();
     }
@@ -66,8 +65,8 @@ public class Mouse extends Entity {
 	    }
 
 	    // Check if tile position is in bounds and not collidable. Then update a valid direction away from the player.
-	    if (newCol >= 0 && newCol < gamePanel.MAX_WORLD_COL &&
-		newRow >= 0 && newRow < gamePanel.MAX_WORLD_ROW) {
+	    if (newCol >= 0 && newCol < GamePanel.MAX_WORLD_COL &&
+		newRow >= 0 && newRow < GamePanel.MAX_WORLD_ROW) {
 		int tileNum = gamePanel.tileManager.mapTileNum[newCol][newRow];
 		if (!gamePanel.tileManager.tile[tileNum].collision) {
 		    validDirections.add(dir);
