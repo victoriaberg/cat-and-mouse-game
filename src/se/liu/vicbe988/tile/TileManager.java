@@ -19,7 +19,7 @@ public class TileManager {
     public TileManager(GamePanel gamePanel) {
 	this.gamePanel = gamePanel;
 	tile = new Tile[4];	// We have 4 type of tiles (grass, water, wood and brick)
-	mapTileNum = new int[gamePanel.MAX_WORLD_COL][gamePanel.MAX_WORLD_ROW];
+	mapTileNum = new int[GamePanel.MAX_WORLD_COL][GamePanel.MAX_WORLD_ROW];
 	getTile();
 	loadMap();
     }
@@ -64,10 +64,10 @@ public class TileManager {
 	    int row = 0;
 
 	    String line;
-	    while (row < gamePanel.MAX_WORLD_ROW && (line = bufferedReader.readLine()) != null) {
+	    while (row < GamePanel.MAX_WORLD_ROW && (line = bufferedReader.readLine()) != null) {
 		String[] numbers = line.split(" ");
 		col = 0; // Reset col for each row
-		while (col < gamePanel.MAX_WORLD_COL && col < numbers.length) {
+		while (col < GamePanel.MAX_WORLD_COL && col < numbers.length) {
 		    int number = Integer.parseInt(numbers[col]);
 		    mapTileNum[col][row] = number;
 		    col++;
@@ -87,20 +87,20 @@ public class TileManager {
 	int playerScreenX = gamePanel.player.screenX;
 	int playerScreenY = gamePanel.player.screenY;
 
-	for (int worldCol = 0; worldCol < gamePanel.MAX_WORLD_COL; worldCol++) {
-	    for (int worldRow = 0; worldRow < gamePanel.MAX_WORLD_ROW; worldRow++) {
+	for (int worldCol = 0; worldCol < GamePanel.MAX_WORLD_COL; worldCol++) {
+	    for (int worldRow = 0; worldRow < GamePanel.MAX_WORLD_ROW; worldRow++) {
 		int tileNum = mapTileNum[worldCol][worldRow];
 
-		int worldX = worldCol * gamePanel.TILE_SIZE;
-		int worldY = worldRow * gamePanel.TILE_SIZE;
+		int worldX = worldCol * GamePanel.TILE_SIZE;
+		int worldY = worldRow * GamePanel.TILE_SIZE;
 
 		int screenX = worldX - playerWorldX + playerScreenX;
 		int screenY = worldY - playerWorldY + playerScreenY;
 
-		if (screenX + gamePanel.TILE_SIZE > 0 && screenX < gamePanel.SCREEN_WIDTH
-		    && screenY + gamePanel.TILE_SIZE > 0 && screenY < gamePanel.SCREEN_HEIGHT) {
-		    g2.drawImage(tile[tileNum].bufferedImage, screenX, screenY, gamePanel.TILE_SIZE, gamePanel.TILE_SIZE, null);
-		    g2.drawImage(tile[tileNum].bufferedImage, screenX, screenY, gamePanel.TILE_SIZE, gamePanel.TILE_SIZE, null);
+		if (screenX + GamePanel.TILE_SIZE > 0 && screenX < GamePanel.SCREEN_WIDTH
+		    && screenY + GamePanel.TILE_SIZE > 0 && screenY < GamePanel.SCREEN_HEIGHT) {
+		    g2.drawImage(tile[tileNum].bufferedImage, screenX, screenY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
+		    g2.drawImage(tile[tileNum].bufferedImage, screenX, screenY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
 
 		}
 	    }
