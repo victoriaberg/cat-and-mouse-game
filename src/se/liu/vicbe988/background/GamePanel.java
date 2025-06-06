@@ -8,15 +8,23 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable{
-    static final int STANDARD_TILE_SIZE = 16; // 16x16 standard tile
-    static final int SCALE = 3; // Original scale
-    public static final int TILE_SIZE = STANDARD_TILE_SIZE * SCALE; // 48x48
+    protected static final int STANDARD_TILE_SIZE = 16; // 16x16 standard tile
+    protected static final int SCALE = 3; // Original scale
+    /**Standard pixel size, 48x48*/
+    public static final int TILE_SIZE = STANDARD_TILE_SIZE * SCALE;
+    /**Maximum screen colum*/
     public static final int MAX_SCREEN_COL = 16;
+    /**Maximum screen row*/
     public static final int MAX_SCREEN_ROW = 12;
-    public static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL; // 768 pixels
-    public static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW; // 576 pixels
+    /**Screen width calculated by tilesize and maximum sreen columns, 768 pixels*/
+    public static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL;
+    /**Screen height calculated by tilesize and maximum sreen rows, 576 pixels*/
+    public static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW;
+    /**Maximum world columns*/
     public static final int MAX_WORLD_COL = 16;
+    /**Maximum world rows*/
     public static final int MAX_WORLD_ROW = 12;
+    /**FPS for game*/
     public static final int FPS = 60;
     public KeyHandler keyHandler = new KeyHandler();
     Thread gameThread = null;
