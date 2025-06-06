@@ -27,11 +27,16 @@ public class GamePanel extends JPanel implements Runnable{
     /**FPS for game*/
     public static final int FPS = 60;
     public KeyHandler keyHandler = new KeyHandler();
-    Thread gameThread = null;
+    private Thread gameThread = null;
+    /**Manages collision controll using current gamepanel*/
     public CollisionControll collisionControll = new CollisionControll(this);
+    /**The player, controlled via keyboard input*/
     public Player player = new Player(this, keyHandler);
+    /**The mouse, initialized to fixed position*/
     public Mouse mouse = new Mouse(this, keyHandler, 10 * TILE_SIZE, 10 * TILE_SIZE);
+    /**Manages the game's tile map*/
     public TileManager tileManager = new TileManager(this);
+    /**Initializing has won to false (has not won yet)*/
     public boolean hasWon = false;
 
     public GamePanel() {
