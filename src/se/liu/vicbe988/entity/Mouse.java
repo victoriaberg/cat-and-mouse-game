@@ -10,60 +10,57 @@ import java.io.IOException;
 import java.util.Random;
 
 public class Mouse extends Entity {
-
     GamePanel gamePanel;
     KeyHandler keyHandler;
     public BufferedImage mouse1;
-    private static final String[] DIRECTIONS = {"up", "down", "left", "right"};
+    private static final Direction[] DIRECTIONS = Direction.values();
     private Random random;
-    private int speed = 2;
-    private int directionCounter = 0;
-    private int directionDuration = 30;
 
     public Mouse(final GamePanel gamePanel, final KeyHandler keyHandler, int mapX, int mapY) {
 	this.gamePanel = gamePanel;
 	this.keyHandler = keyHandler;
 	this.mapX = mapX;
 	this.mapY = mapY;
-	solidArea = new Rectangle(8, 16, 32, 32);
+	setSolidArea(new Rectangle(8, 16, 32, 32));
 	random = new Random();
+	setSpeed(2);
 	getMouseImage();
     }
 
+    @Override
     public void update() {
 	if (gamePanel.hasWon) {
 	    return;
 	}
 
 	// Current tile position of the mouse
-	int mouseCol = mapX / gamePanel.TILE_SIZE;
-	int mouseRow = mapY / gamePanel.TILE_SIZE;
+	int mouseCol = getMapX() / GamePanel.TILE_SIZE;
+	int mouseRow = getMapY() / GamePanel.TILE_SIZE;
 
 	// Player's current tile position
-	int playerCol = gamePanel.player.mapX / gamePanel.TILE_SIZE;
-	int playerRow = gamePanel.player.mapY / gamePanel.TILE_SIZE;
+	int playerCol = gamePanel.player.getMapX() / GamePanel.TILE_SIZE;
+	int playerRow = gamePanel.player.getMapY() / GamePanel.TILE_SIZE;
 
-	String[] possibleDirections = {"up", "down", "left", "right"};
-	int maxDistance = -1;
-	String bestDirection = null;
+	int maxDistance = 0;
+	Direction bestDirection = null;
 	Random random = new Random();
 
-	java.util.List<String> validDirections = new java.util.ArrayList<>();	// Store valid directions
+	java.util.List<Direction> validDirections = new java.util.ArrayList<>();	// Store valid directions
 
-	for (String dir : possibleDirections) {
+	for (Direction dir : DIRECTIONS) {
 	    int newCol = mouseCol;
 	    int newRow = mouseRow;
 	    switch (dir) {
-		case "up":
+		case UP:
 		    newRow--;
 		    break;
-		case "down":
+		case DOWN:
 		    newRow++;
 		    break;
-		case "left":
+		case LEFT:
 		    newCol--;
 		    break;
-		case "right":
+		case RIGHT:
 		    newCol++;
 		    break;
 	    }
@@ -82,39 +79,22 @@ public class Mouse extends Entity {
 		}
 	    }
 	}
-
 	// Make sure that the mouse moves in a valid (the best) direction
 	if (!validDirections.isEmpty()) {
-	    if (random.nextDouble() < 0.1) { // 10% chance to pick a random direction for more randomness
-		bestDirection = validDirections.get(random.nextInt(validDirections.size()));
-	    }
-
-	    direction = bestDirection;
-	    switch (direction) {
-		case "up":
-		    mapY -= speed;
-		    break;
-		case "down":
-		    mapY += speed;
-		    break;
-		case "left":
-		    mapX -= speed;
-		    break;
-		case "right":
-		    mapX += speed;
-		    break;
-	    }
+	    setDirection(bestDirection);
+	    switchDirection();
 	}
     }
 
+    @Override
     public void draw(Graphics2D g2) {
 	// Calculate screen position based on map position relative to player
-	int mouseScreenX = gamePanel.player.screenX + (mapX - gamePanel.player.mapX);
-	int mouseScreenY = gamePanel.player.screenY + (mapY - gamePanel.player.mapY);
+	int mouseScreenX = gamePanel.player.getScreenX() + (getMapX() - gamePanel.player.getMapX());
+	int mouseScreenY = gamePanel.player.getScreenY() + (getMapY() - gamePanel.player.getMapY());
 
-	if (mouseScreenX + gamePanel.TILE_SIZE > 0 && mouseScreenX < gamePanel.SCREEN_WIDTH
-	    && mouseScreenY + gamePanel.TILE_SIZE > 0 && mouseScreenY < gamePanel.SCREEN_HEIGHT) {
-	    g2.drawImage(mouse1, mouseScreenX, mouseScreenY, gamePanel.TILE_SIZE, gamePanel.TILE_SIZE, null);
+	if (mouseScreenX + GamePanel.TILE_SIZE > 0 && mouseScreenX < GamePanel.SCREEN_WIDTH
+	    && mouseScreenY + GamePanel.TILE_SIZE > 0 && mouseScreenY < GamePanel.SCREEN_HEIGHT) {
+	    g2.drawImage(mouse1, mouseScreenX, mouseScreenY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
 	}
     }
 

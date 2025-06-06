@@ -13,30 +13,36 @@ public class Player extends Entity {
     KeyHandler keyHandler;
 
     public BufferedImage up1, up2, left1, left2, down1, down2, right1, right2;
-    public int worldX, worldY;	// Cats position on the map
     public final int screenX, screenY; // Cats position on the screen
 
     public Player(final GamePanel gamePanel, final KeyHandler keyHandler) {
+	super();
 	this.gamePanel = gamePanel;
 	this.keyHandler = keyHandler;
-
-	screenX = gamePanel.SCREEN_WIDTH / 2 - (gamePanel.TILE_SIZE / 2);
-	screenY = gamePanel.SCREEN_HEIGHT / 2 - (gamePanel.TILE_SIZE / 2);
-
-	solidArea = new Rectangle(8, 16, 32, 32); // solid area for player, solid square at the bottom of the player
-
+	screenX = GamePanel.SCREEN_WIDTH / 2 - (GamePanel.TILE_SIZE / 2);
+	screenY = GamePanel.SCREEN_HEIGHT / 2 - (GamePanel.TILE_SIZE / 2);
+	setSolidArea(new Rectangle(8, 16, 32, 32)); // solid area for player, solid square at the bottom of the player
 	setDefaultValues();
 	getCatImage();
     }
 
+    public int getScreenX() {
+	return screenX;
+    }
+
+    public int getScreenY() {
+	return screenY;
+    }
+
     public void setDefaultValues() {
-	mapX = (gamePanel.MAX_WORLD_COL * gamePanel.TILE_SIZE) / 2;
-	mapY = (gamePanel.MAX_WORLD_ROW * gamePanel.TILE_SIZE) / 2;
-	speed = 4;
-	direction = "up";
+	setMapX((GamePanel.MAX_WORLD_COL * GamePanel.TILE_SIZE) / 2);
+	setMapY((GamePanel.MAX_WORLD_ROW * GamePanel.TILE_SIZE) / 2);
+	setSpeed(4);
+	setDirection(Direction.UP);
     }
 
     // Update method gets called 60 times/second (60 FPS) in GamePanel run function
+    @Override
     public void update() {
 	boolean keyPressed = false;  // If key is not pressed, don't change images
 	if (gamePanel.hasWon) {
@@ -44,97 +50,80 @@ public class Player extends Entity {
 	}
 
 	if (keyHandler.up) {
-	    direction = "up";
+	    setDirection(Direction.UP);
 	    keyPressed = true;
 	} else if (keyHandler.left) {
-	    direction = "left";
+	    setDirection(Direction.LEFT);
 	    keyPressed = true;
 	} else if (keyHandler.down) {
-	    direction = "down";
+	    setDirection(Direction.DOWN);
 	    keyPressed = true;
 	} else if (keyHandler.right) {
-	    direction = "right";
+	    setDirection(Direction.RIGHT);
 	    keyPressed = true;
 	}
 
 	// Only proceed with movement if a key was pressed
 	if (keyPressed) {
-	    collisionOn = false;
+	    setCollisionOn(false);
 	    gamePanel.collisionControll.checkTile(this);
-//	    System.out.println(collisionOn);
-	    if (!collisionOn) {	// If there is no collision, move player
-		switch (direction) {
-		    case "up":
-			mapY -= speed;
-			break;
-		    case "down":
-			mapY += speed;
-			break;
-		    case "left":
-			mapX -= speed;
-			break;
-		    case "right":
-			mapX += speed;
-			break;
-		}
+	    if (!isCollisionOn()) {
+		switchDirection();
 	    }
 
 	    // Update animation
-	    spriteCounter++;
-	    if (spriteCounter > 10) {    // Every 10 frames the cat image changes
-		if (spriteNumber == 1) {
-		    spriteNumber = 2;
-		} else if (spriteNumber == 2) {
-		    spriteNumber = 1;
+	    setSpriteCounter(getSpriteCounter() + 1);
+	    if (getSpriteCounter() > 10) {    // Every 10 frames the cat image changes
+		if (getSpriteNumber() == 1) {
+		    setSpriteNumber(2);
+		} else if (getSpriteNumber() == 2) {
+		    setSpriteNumber(1);
 		}
-		spriteCounter = 0;
+		setSpriteCounter(0);
 	    }
 	}
     }
 
+    @Override
     public void draw(Graphics2D g2) {
 	BufferedImage bufferedImage = null;
 	boolean keyPressed = false;
 	// Make change between player sprites
-	switch (direction) {
-	    case "up":
-		direction = "up";
+	switch (getDirection()) {
+	    case Direction.UP:
 		keyPressed = true;
-		if (spriteNumber == 1) {
+		if (getSpriteNumber() == 1) {
 		    bufferedImage = up1;
-		} else if (spriteNumber == 2) {
+		} else if (getSpriteNumber() == 2) {
 		    bufferedImage = up2;
 		}
 		break;
-	    case "left":
-		direction = "left";
+	    case Direction.LEFT:
 		keyPressed = true;
-		if (spriteNumber == 1) {
+		if (getSpriteNumber() == 1) {
 		    bufferedImage = left1;
-		} else if (spriteNumber == 2) {
+		} else if (getSpriteNumber() == 2) {
 		    bufferedImage = left2;
 		}
 		break;
-	    case "down":
-		direction = "down";
+	    case Direction.DOWN:
 		keyPressed = true;
-		if (spriteNumber == 1) {
+		if (getSpriteNumber() == 1) {
 		    bufferedImage = down1;
-		} else if (spriteNumber == 2) {
+		} else if (getSpriteNumber() == 2) {
 		    bufferedImage = down2;
 		}
 		break;
-	    case "right":
-		direction = "right";
+	    case Direction.RIGHT:
 		keyPressed = true;
-		if (spriteNumber == 1) {
+		if (getSpriteNumber() == 1) {
 		    bufferedImage = right1;
-		} else if (spriteNumber == 2) {
+		} else if (getSpriteNumber() == 2) {
 		    bufferedImage = right2;
 		}
 		break;
 	}
-	g2.drawImage(bufferedImage, screenX, screenY, gamePanel.TILE_SIZE, gamePanel.TILE_SIZE, null);
+	g2.drawImage(bufferedImage, getScreenX(), getScreenY(), gamePanel.TILE_SIZE, gamePanel.TILE_SIZE, null);
     }
 
     public void getCatImage() {

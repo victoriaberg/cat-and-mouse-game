@@ -15,10 +15,9 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int MAX_SCREEN_ROW = 12;
     public static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL; // 768 pixels
     public static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW; // 576 pixels
-    public final int MAX_WORLD_COL = 39;
-    public final int MAX_WORLD_ROW = 39;
-
-    int FPS = 60;
+    public static final int MAX_WORLD_COL = 16;
+    public static final int MAX_WORLD_ROW = 12;
+    public static final int FPS = 60;
     public KeyHandler keyHandler = new KeyHandler();
     Thread gameThread = null;
     public CollisionControll collisionControll = new CollisionControll(this);

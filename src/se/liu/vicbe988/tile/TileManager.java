@@ -53,7 +53,7 @@ public class TileManager {
 
     public void loadMap() {
 	try {
-	    InputStream inputStream = getClass().getResourceAsStream("/images/maps/map1");
+	    InputStream inputStream = getClass().getResourceAsStream("/images/maps/map0");
 	    if (inputStream == null) {
 		System.err.println("Map file not found: /images/maps/map1");
 		return; // if the file can't be loaded
