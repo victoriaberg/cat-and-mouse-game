@@ -2,9 +2,12 @@ package se.liu.vicbe988.background;
 
 import se.liu.vicbe988.entity.Entity;
 
+/*
+* This class is responsible for checking collision between the player and tiles.
+* */
 public class CollisionControll {
 
-    GamePanel gamePanel;
+    private GamePanel gamePanel;
 
     public CollisionControll(GamePanel gamePanel) {
 	this.gamePanel = gamePanel;

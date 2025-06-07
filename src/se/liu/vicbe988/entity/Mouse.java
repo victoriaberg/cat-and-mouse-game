@@ -10,14 +10,12 @@ import java.io.IOException;
 import java.util.Random;
 
 public class Mouse extends Entity {
-    GamePanel gamePanel;
-    KeyHandler keyHandler;
-    public BufferedImage mouse1;
+    private GamePanel gamePanel;
+    public BufferedImage mouse1 = null;
     private static final Direction[] DIRECTIONS = Direction.values();
 
     public Mouse(final GamePanel gamePanel, final KeyHandler keyHandler, int mapX, int mapY) {
 	this.gamePanel = gamePanel;
-	this.keyHandler = keyHandler;
 	this.mapX = mapX;
 	this.mapY = mapY;
 	setSolidArea(new Rectangle(8, 16, 32, 32));
