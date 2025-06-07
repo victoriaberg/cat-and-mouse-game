@@ -9,10 +9,11 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Player extends Entity {
-    GamePanel gamePanel;
-    KeyHandler keyHandler;
-
-    public BufferedImage up1, up2, left1, left2, down1, down2, right1, right2;
+    private GamePanel gamePanel;
+    private KeyHandler keyHandler;
+    /**Different images for player directions*/
+    public BufferedImage up1 = null, up2 = null, left1 = null, left2 = null, down1 = null, down2 = null, right1 = null, right2 = null;
+    /**Position for player om screen*/
     public final int screenX, screenY; // Cats position on the screen
 
     public Player(final GamePanel gamePanel, final KeyHandler keyHandler) {
@@ -123,7 +124,7 @@ public class Player extends Entity {
 		}
 		break;
 	}
-	g2.drawImage(bufferedImage, getScreenX(), getScreenY(), gamePanel.TILE_SIZE, gamePanel.TILE_SIZE, null);
+	g2.drawImage(bufferedImage, getScreenX(), getScreenY(), GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
     }
 
     public void getCatImage() {
