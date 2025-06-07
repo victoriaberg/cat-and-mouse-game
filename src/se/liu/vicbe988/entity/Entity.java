@@ -4,10 +4,10 @@ import java.awt.*;
 
 public abstract class Entity { // Abstract parent class for characters to eg. prevent invalid object creation
     public int mapX, mapY, speed;
-    public Direction direction;
+    public Direction direction = null;
     public int spriteCounter = 0;
     public int spriteNumber = 1;
-    public Rectangle solidArea; // Small solid area for player to easier go in a 1x1 passage
+    public Rectangle solidArea = null; // Small solid area for player to easier go in a 1x1 passage
     public boolean collisionOn = false;
 
     protected Entity() {
