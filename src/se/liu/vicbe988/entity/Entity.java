@@ -10,6 +10,11 @@ public abstract class Entity { // Abstract parent class for characters to eg. pr
     public Rectangle solidArea = null; // Small solid area for player to easier go in a 1x1 passage
     public boolean collisionOn = false;
 
+    protected Entity(int mapX, int mapY) {
+        this.mapX = mapX;
+        this.mapY = mapY;
+    }
+
     protected Entity() {
     }
 

@@ -14,9 +14,8 @@ public class Mouse extends Entity {
     public BufferedImage mouse1 = null;
 
     public Mouse(final GamePanel gamePanel, final KeyHandler keyHandler, int mapX, int mapY) {
+	super(mapX, mapY);
 	this.gamePanel = gamePanel;
-	this.mapX = mapX;
-	this.mapY = mapY;
 	setSolidArea(new Rectangle(8, 16, 32, 32));
 	Random random = new Random();
 	setSpeed(2);
