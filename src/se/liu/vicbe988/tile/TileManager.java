@@ -11,10 +11,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class TileManager {
-    GamePanel gamePanel;
+    private GamePanel gamePanel;
+    /**Array of tiles*/
     public Tile[] tile;
+    /**2d array to store tile numbers*/
     public int[][] mapTileNum;
-    public Mouse mouse;
+    public Mouse mouse = null;
 
     public TileManager(GamePanel gamePanel) {
 	this.gamePanel = gamePanel;
