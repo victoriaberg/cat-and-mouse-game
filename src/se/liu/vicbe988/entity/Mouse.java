@@ -12,7 +12,6 @@ import java.util.Random;
 public class Mouse extends Entity {
     private GamePanel gamePanel;
     public BufferedImage mouse1 = null;
-    private static final Direction[] DIRECTIONS = Direction.values();
 
     public Mouse(final GamePanel gamePanel, final KeyHandler keyHandler, int mapX, int mapY) {
 	this.gamePanel = gamePanel;
@@ -44,7 +43,7 @@ public class Mouse extends Entity {
 
 	java.util.List<Direction> validDirections = new java.util.ArrayList<>();	// Store valid directions
 
-	for (Direction dir : DIRECTIONS) {
+	for (Direction dir : Direction.values()) {
 	    int newCol = mouseCol;
 	    int newRow = mouseRow;
 	    switch (dir) {
