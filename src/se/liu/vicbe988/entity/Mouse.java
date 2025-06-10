@@ -1,6 +1,7 @@
 package se.liu.vicbe988.entity;
 
 import se.liu.vicbe988.background.GamePanel;
+import se.liu.vicbe988.background.IGameState;
 import se.liu.vicbe988.background.KeyHandler;
 
 import javax.imageio.ImageIO;
@@ -12,10 +13,12 @@ import java.util.Random;
 public class Mouse extends Entity {
     private GamePanel gamePanel;
     public BufferedImage mouse1 = null;
+    private IGameState gameState = null;
 
-    public Mouse(final GamePanel gamePanel, final KeyHandler keyHandler, int mapX, int mapY) {
+    public Mouse(final GamePanel gamePanel, final KeyHandler keyHandler, int mapX, int mapY, final IGameState gameState) {
 	super(mapX, mapY);
 	this.gamePanel = gamePanel;
+	this.gameState = gameState;
 	setSolidArea(new Rectangle(8, 16, 32, 32));
 	Random random = new Random();
 	setSpeed(2);
@@ -24,7 +27,7 @@ public class Mouse extends Entity {
 
     @Override
     public void update() {
-	if (gamePanel.hasWon) {
+	if (gameState.hasWon()) {
 	    return;
 	}
 

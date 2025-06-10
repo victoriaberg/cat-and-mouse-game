@@ -30,14 +30,14 @@ public class GamePanel extends JPanel implements Runnable{
     private Thread gameThread = null;
     /**Manages collision controll using current gamepanel*/
     public CollisionControll collisionControll = new CollisionControll(this);
+    public IGameState gameState = new GameState();
     /**The player, controlled via keyboard input*/
-    public Player player = new Player(this, keyHandler);
+    public Player player = new Player(this, keyHandler, gameState);
     /**The mouse, initialized to fixed position*/
-    public Mouse mouse = new Mouse(this, keyHandler, 10 * TILE_SIZE, 10 * TILE_SIZE);
+    public Mouse mouse = new Mouse(this, keyHandler, 10 * TILE_SIZE, 10 * TILE_SIZE, gameState);
     /**Manages the game's tile map*/
     public TileManager tileManager = new TileManager(this);
     /**Initializing has won to false (has not won yet)*/
-    public boolean hasWon = false;
 
     public GamePanel() {
 	// Set size of JPanel class
@@ -93,7 +93,7 @@ public class GamePanel extends JPanel implements Runnable{
 		mouse.solidArea.width, mouse.solidArea.height
 	);
 	if (playerRect.intersects(mouseRect)) {	// If the cat touches the mouse
-	    hasWon = true;
+	    gameState.setHasWon(true);
 	}
     }
 
@@ -104,7 +104,7 @@ public class GamePanel extends JPanel implements Runnable{
 	tileManager.draw(g2);	// Draw background first
 	mouse.draw(g2);		// Draw player and mouse, pass g2 to be able to draw
 	player.draw(g2);
-	if (hasWon) {
+	if (gameState.hasWon()) {
 	    g2.setColor(Color.WHITE);
 	    g2.setFont(new Font("Arial", Font.BOLD, 48));
 	    String text = "You Won!";
