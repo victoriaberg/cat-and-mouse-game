@@ -1,6 +1,7 @@
 package se.liu.vicbe988.entity;
 
 import se.liu.vicbe988.background.GamePanel;
+import se.liu.vicbe988.background.IGameState;
 import se.liu.vicbe988.background.KeyHandler;
 
 import javax.imageio.ImageIO;
@@ -15,11 +16,13 @@ public class Player extends Entity {
     public BufferedImage up1 = null, up2 = null, left1 = null, left2 = null, down1 = null, down2 = null, right1 = null, right2 = null;
     /**Position for player om screen*/
     public final int screenX, screenY; // Cats position on the screen
+    private IGameState gameState = null;
 
-    public Player(final GamePanel gamePanel, final KeyHandler keyHandler) {
+    public Player(final GamePanel gamePanel, final KeyHandler keyHandler, final IGameState gameState) {
 	super();
 	this.gamePanel = gamePanel;
 	this.keyHandler = keyHandler;
+	this.gameState = gameState;
 	screenX = GamePanel.SCREEN_WIDTH / 2 - (GamePanel.TILE_SIZE / 2);
 	screenY = GamePanel.SCREEN_HEIGHT / 2 - (GamePanel.TILE_SIZE / 2);
 	setSolidArea(new Rectangle(8, 16, 32, 32)); // solid area for player, solid square at the bottom of the player
@@ -46,7 +49,7 @@ public class Player extends Entity {
     @Override
     public void update() {
 	boolean keyPressed = false;  // If key is not pressed, don't change images
-	if (gamePanel.hasWon) {
+	if (gameState.hasWon()) {
 	    return;
 	}
 
