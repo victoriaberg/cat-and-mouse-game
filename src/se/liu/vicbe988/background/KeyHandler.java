@@ -8,6 +8,9 @@ public class KeyHandler implements KeyListener {
     @Override public void keyTyped(final KeyEvent e) {
     }
 
+    /**
+     * This method is called when you press a key
+     */
     @Override public void keyPressed(final KeyEvent e) {
 	int code = e.getKeyCode(); // Checks which key got pressed
 	if(code == KeyEvent.VK_W){
@@ -24,6 +27,9 @@ public class KeyHandler implements KeyListener {
 	}
     }
 
+    /**
+     * This method is called when you release a key
+     */
     @Override public void keyReleased(final KeyEvent e) {
 	int code = e.getKeyCode();
 	if(code == KeyEvent.VK_W){

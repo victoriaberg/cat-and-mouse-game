@@ -48,11 +48,17 @@ public class GamePanel extends JPanel implements Runnable{
 	this.setFocusable(true); // Focused to recieve key
     }
 
+    /**
+     * Starts the game thread, which calls the run method (this method will be called to start the game loop).
+     */
     public void setGameThread() {
 	gameThread = new Thread(this);
 	gameThread.start(); // Automatically calls run method
     }
 
+    /**
+     * Runs game loop
+     */
     @Override public void run() {
 	double drawInterval = (double) 1000000000 / FPS; // Repaints screen ever ~0.0166 seconds
 	double delta = 0;
@@ -82,6 +88,9 @@ public class GamePanel extends JPanel implements Runnable{
 	}
     }
 
+    /**
+     * Updates the game state and checks collision
+     */
     public void update() {
 	player.update();
 	mouse.update();
@@ -97,6 +106,9 @@ public class GamePanel extends JPanel implements Runnable{
 	}
     }
 
+    /**
+     * Paints the game components
+     */
     @Override
     public void paintComponent(Graphics g) {
 	super.paintComponent(g);

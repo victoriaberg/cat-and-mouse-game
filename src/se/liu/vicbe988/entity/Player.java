@@ -45,9 +45,12 @@ public class Player extends Entity {
 	setDirection(Direction.UP);
     }
 
-    // Update method gets called 60 times/second (60 FPS) in GamePanel run function
+    /**
+     * Updates the player position depending on what key is pressed
+     */
     @Override
     public void update() {
+	// Update method gets called 60 times/second (60 FPS) in GamePanel run function
 	boolean keyPressed = false;  // If key is not pressed, don't change images
 	if (gameState.hasWon()) {
 	    return;
@@ -88,6 +91,9 @@ public class Player extends Entity {
 	}
     }
 
+    /**
+     * Draws the player on the screen
+     */
     @Override
     public void draw(Graphics2D g2) {
 	BufferedImage bufferedImage = null;
@@ -130,6 +136,9 @@ public class Player extends Entity {
 	g2.drawImage(bufferedImage, getScreenX(), getScreenY(), GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
     }
 
+    /**
+     * Loads the cat images from resources
+     */
     public void getCatImage() {
 	try {
 	    up1 = ImageIO.read(getClass().getResourceAsStream("/images/player/Up1.png"));
