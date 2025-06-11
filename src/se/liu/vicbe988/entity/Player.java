@@ -14,7 +14,7 @@ public class Player extends Entity {
     private KeyHandler keyHandler;
     /**Different images for player directions*/
     public BufferedImage up1 = null, up2 = null, left1 = null, left2 = null, down1 = null, down2 = null, right1 = null, right2 = null;
-    /**Position for player om screen*/
+    /**Position for player on screen*/
     public final int screenX, screenY; // Cats position on the screen
     private IGameState gameState = null;
 

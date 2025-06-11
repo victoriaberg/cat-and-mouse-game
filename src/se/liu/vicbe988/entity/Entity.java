@@ -83,9 +83,6 @@ public abstract class Entity implements IEntity { // Abstract parent class for c
         this.collisionOn = collisionOn;
     }
 
-    public abstract void update();         // Update entity state
-    public abstract void draw(Graphics2D g2);
-
     protected void switchDirection() {
         switch (getDirection()) {
             case Direction.UP:
