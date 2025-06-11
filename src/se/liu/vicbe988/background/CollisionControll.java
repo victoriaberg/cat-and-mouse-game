@@ -20,13 +20,14 @@ public class CollisionControll {
 	int entityTopWorldY = entity.getMapY() + entity.getSolidArea().y;
 	int entityBottomWorldY = entity.getMapY() + entity.getSolidArea().y + entity.getSolidArea().height;
 
+	// World coordinates to tile coordinates
 	int entityLeftCol = entityLeftWorldX/GamePanel.TILE_SIZE;
 	int entityRightCol = entityRightWorldX/GamePanel.TILE_SIZE;
 	int entityTopRow = entityTopWorldY/GamePanel.TILE_SIZE;
 	int entityBottomRow = entityBottomWorldY/GamePanel.TILE_SIZE;
 
 	int tileNum1, tileNum2;
-
+	// Check for collision with tiles
 	switch (entity.direction) {
 	    case UP:
 		entityTopRow = (entityTopWorldY - entity.getSpeed()) / GamePanel.TILE_SIZE;

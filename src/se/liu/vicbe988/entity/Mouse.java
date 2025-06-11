@@ -25,6 +25,9 @@ public class Mouse extends Entity {
 	getMouseImage();
     }
 
+    /**
+     * Switches the mouse direction
+     */
     @Override
     public void update() {
 	if (gameState.hasWon()) {
@@ -84,6 +87,9 @@ public class Mouse extends Entity {
 	}
     }
 
+    /**
+     * Draws the mouse on the screen
+     */
     @Override
     public void draw(Graphics2D g2) {
 	// Calculate screen position based on map position relative to player
@@ -96,6 +102,9 @@ public class Mouse extends Entity {
 	}
     }
 
+    /**
+     * Loads mouse image from resources
+     */
     public void getMouseImage() {
 	try {
 	    mouse1 = ImageIO.read(getClass().getResourceAsStream("/images/mouse/Mouse.png"));

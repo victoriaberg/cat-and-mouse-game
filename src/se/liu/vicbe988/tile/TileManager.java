@@ -26,6 +26,9 @@ public class TileManager {
 	loadMap();
     }
 
+    /**
+     * Loads the tile images from resources
+     */
     public void getTile() {
 	try {
 
@@ -53,6 +56,9 @@ public class TileManager {
 	}
     }
 
+    /**
+     * Loads the map from a text file (2D array)
+     */
     public void loadMap() {
 	try {
 	    InputStream inputStream = getClass().getResourceAsStream("/images/maps/map0");
@@ -82,7 +88,9 @@ public class TileManager {
 	}
     }
 
-
+    /**
+     * Draws the tiles on the screen
+     */
     public void draw(Graphics2D g2) {
 	int playerWorldX = gamePanel.player.mapX;
 	int playerWorldY = gamePanel.player.mapY;
