@@ -1,6 +1,10 @@
 package se.liu.vicbe988.entity;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 
 public abstract class Entity implements IEntity { // Abstract parent class for characters to eg. prevent invalid object creation
     public int mapX, mapY, speed;
@@ -100,4 +104,19 @@ public abstract class Entity implements IEntity { // Abstract parent class for c
         }
     }
 
+    /**
+     * Loads an image from the resources
+     */
+    public static BufferedImage loadImage(String path) throws IOException {
+        try (InputStream inputStream = Player.class.getResourceAsStream(path)) {
+            if (inputStream == null) {
+                throw new IOException("Recource not found: " + path);
+            }
+            BufferedImage image = ImageIO.read(inputStream);
+            if (image == null) {
+                throw new IOException("Could not read image: " + path + ". Closing.");
+            }
+            return image;
+        }
+    }
 }

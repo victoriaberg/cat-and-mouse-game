@@ -4,7 +4,6 @@ import se.liu.vicbe988.background.GamePanel;
 import se.liu.vicbe988.background.IGameState;
 import se.liu.vicbe988.background.KeyHandler;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -23,6 +22,13 @@ public class Mouse extends Entity {
 	Random random = new Random();
 	setSpeed(2);
 	getMouseImage();
+	setDefaultValues();
+    }
+
+    public void setDefaultValues() {
+	setMapX(10 * GamePanel.TILE_SIZE);
+	setMapY(10 * GamePanel.TILE_SIZE);
+	setDirection(Direction.UP);
     }
 
     /**
@@ -107,7 +113,7 @@ public class Mouse extends Entity {
      */
     public void getMouseImage() {
 	try {
-	    mouse1 = ImageIO.read(getClass().getResourceAsStream("/images/mouse/Mouse.png"));
+	    mouse1 = loadImage("/images/mouse/Mouse.png");
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
