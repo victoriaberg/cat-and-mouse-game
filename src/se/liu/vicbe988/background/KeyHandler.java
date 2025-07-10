@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
-    public boolean up, down, left, right;
+    public boolean up, down, left, right, restart;
     @Override public void keyTyped(final KeyEvent e) {
     }
 
@@ -25,6 +25,9 @@ public class KeyHandler implements KeyListener {
 	if(code == KeyEvent.VK_D){
 	    right = true;
 	}
+	if(code == KeyEvent.VK_R){
+	    restart = true;
+	}
     }
 
     /**
@@ -43,6 +46,9 @@ public class KeyHandler implements KeyListener {
 	}
 	if(code == KeyEvent.VK_D){
 	    right = false;
+	}
+	if(code == KeyEvent.VK_R){
+	    restart = false;
 	}
     }
 }

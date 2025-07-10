@@ -92,6 +92,10 @@ public class GamePanel extends JPanel implements Runnable{
      * Updates the game state and checks collision
      */
     public void update() {
+	if (keyHandler.restart) {
+	    resetGame();
+	}
+
 	player.update();
 	mouse.update();
 
@@ -104,6 +108,12 @@ public class GamePanel extends JPanel implements Runnable{
 	if (playerRect.intersects(mouseRect)) {	// If the cat touches the mouse
 	    gameState.setHasWon(true);
 	}
+    }
+
+    private void resetGame() {
+	gameState.setHasWon(false);
+	player.setDefaultValues();
+	mouse.setDefaultValues();
     }
 
     /**
@@ -119,7 +129,7 @@ public class GamePanel extends JPanel implements Runnable{
 	if (gameState.hasWon()) {
 	    g2.setColor(Color.WHITE);
 	    g2.setFont(new Font("Arial", Font.BOLD, 48));
-	    String text = "You Won!";
+	    String text = "You Won! Press R to restart";
 	    int x = (getWidth() - g2.getFontMetrics().stringWidth(text)) / 2; // Center text
 	    int y = getHeight() / 2;
 	    g2.drawString(text, x, y);
