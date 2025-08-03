@@ -3,7 +3,6 @@ package se.liu.vicbe988.tile;
 import se.liu.vicbe988.background.GamePanel;
 import se.liu.vicbe988.entity.Mouse;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,28 +30,13 @@ public class TileManager {
      */
     public void getTile() {
 	try {
-
-	    tile[0] = new Tile();
-	    tile[0].bufferedImage = ImageIO.read(getClass().getResourceAsStream(
-		    "/images/tiles/Grass.png"));
-
-	    tile[1] = new Tile();
-	    tile[1].bufferedImage = ImageIO.read(getClass().getResourceAsStream(
-		    "/images/tiles/Brick.png"));
-	    tile[1].collision = true;
-
-	    tile[2] = new Tile();
-	    tile[2].bufferedImage = ImageIO.read(getClass().getResourceAsStream(
-		    "/images/tiles/Wood.png"));
-	    tile[2].collision = true;
-
-	    tile[3] = new Tile();
-	    tile[3].bufferedImage = ImageIO.read(getClass().getResourceAsStream(
-		    "/images/tiles/Water.png"));
-	    tile[3].collision = true;
-
+	    tile[0] = new Tile("/images/tiles/grass.png", false);
+	    tile[1] = new Tile("/images/tiles/Brick.png", true);
+	    tile[2] = new Tile("/images/tiles/Wood.png", true);
+	    tile[3] = new Tile("/images/tiles/Water.png", true);
 	} catch (IOException e) {
 	    e.printStackTrace();
+	    System.exit(1);
 	}
     }
 
@@ -110,8 +94,6 @@ public class TileManager {
 		if (screenX + GamePanel.TILE_SIZE > 0 && screenX < GamePanel.SCREEN_WIDTH
 		    && screenY + GamePanel.TILE_SIZE > 0 && screenY < GamePanel.SCREEN_HEIGHT) {
 		    g2.drawImage(tile[tileNum].bufferedImage, screenX, screenY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-		    g2.drawImage(tile[tileNum].bufferedImage, screenX, screenY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-
 		}
 	    }
 	}

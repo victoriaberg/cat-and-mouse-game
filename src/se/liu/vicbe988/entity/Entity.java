@@ -110,11 +110,13 @@ public abstract class Entity implements IEntity { // Abstract parent class for c
     public static BufferedImage loadImage(String path) throws IOException {
         try (InputStream inputStream = Player.class.getResourceAsStream(path)) {
             if (inputStream == null) {
-                throw new IOException("Recource not found: " + path);
+                System.err.println("Resource not found: " + path);
+                System.exit(1);
             }
             BufferedImage image = ImageIO.read(inputStream);
             if (image == null) {
-                throw new IOException("Could not read image: " + path + ". Closing.");
+                System.err.println("Could not read image: " + path);
+                System.exit(1);
             }
             return image;
         }
