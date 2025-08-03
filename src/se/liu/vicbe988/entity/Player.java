@@ -150,7 +150,6 @@ public class Player extends Entity {
 	    right2 = loadImage("/images/player/Right2.png");
 	} catch (IOException e) {
 	    e.printStackTrace();
-	    System.exit(1); // Exit if images cannot be loaded
 	}
     }
 }
