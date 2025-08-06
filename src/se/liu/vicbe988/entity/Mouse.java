@@ -26,8 +26,8 @@ public class Mouse extends Entity {
     }
 
     public void setDefaultValues() {
-	setMapX(10 * GamePanel.TILE_SIZE);
-	setMapY(10 * GamePanel.TILE_SIZE);
+	setMapX(4 * GamePanel.TILE_SIZE);
+	setMapY(8 * GamePanel.TILE_SIZE);
 	setDirection(Direction.UP);
     }
 
@@ -39,57 +39,96 @@ public class Mouse extends Entity {
 	if (gameState.hasWon()) {
 	    return;
 	}
-
-	// Current tile position of the mouse
-	int mouseCol = getMapX() / GamePanel.TILE_SIZE;
-	int mouseRow = getMapY() / GamePanel.TILE_SIZE;
-
-	// Player's current tile position
 	int playerCol = gamePanel.player.getMapX() / GamePanel.TILE_SIZE;
 	int playerRow = gamePanel.player.getMapY() / GamePanel.TILE_SIZE;
+	int mouseCol = getMapX() / GamePanel.TILE_SIZE;
+	int mouseRow = getMapY() / GamePanel.TILE_SIZE;
+	int currentDistance = Math.abs(mouseCol - playerCol) + Math.abs(mouseRow - playerRow);
 
-	int maxDistance = 0;
-	Direction bestDirection = null;
-	Random random = new Random();
-
-	java.util.List<Direction> validDirections = new java.util.ArrayList<>();	// Store valid directions
-
-	for (Direction dir : Direction.values()) {
-	    int newCol = mouseCol;
-	    int newRow = mouseRow;
-	    switch (dir) {
-		case UP:
-		    newRow--;
-		    break;
-		case DOWN:
-		    newRow++;
-		    break;
-		case LEFT:
-		    newCol--;
-		    break;
-		case RIGHT:
-		    newCol++;
-		    break;
-	    }
-
-	    // Check if tile position is in bounds and not collidable. Then update a valid direction away from the player.
-	    if (newCol >= 0 && newCol < GamePanel.MAX_WORLD_COL &&
-		newRow >= 0 && newRow < GamePanel.MAX_WORLD_ROW) {
-		int tileNum = gamePanel.tileManager.mapTileNum[newCol][newRow];
-		if (!gamePanel.tileManager.tile[tileNum].collision) {
-		    validDirections.add(dir);
-		    int dist = Math.abs(newCol - playerCol) + Math.abs(newRow - playerRow);
-		    if (dist > maxDistance) {
-			maxDistance = dist;
-			bestDirection = dir;
-		    }
+	if (getDirection() != null) {
+	    Direction originalDirection = getDirection();
+	    setCollisionOn(false);
+	    gamePanel.collisionControll.checkTile(this);
+	    if (!isCollisionOn()) {
+		int newMapX = getMapX();
+		int newMapY = getMapY();
+		switch (getDirection()) {
+		    case UP:
+			newMapY -= getSpeed();
+			break;
+		    case DOWN:
+			newMapY += getSpeed();
+			break;
+		    case LEFT:
+			newMapX -= getSpeed();
+			break;
+		    case RIGHT:
+			newMapX += getSpeed();
+			break;
+		}
+		int newCol = newMapX / GamePanel.TILE_SIZE;
+		int newRow = newMapY / GamePanel.TILE_SIZE;
+		int newDistance = Math.abs(newCol - playerCol) + Math.abs(newRow - playerRow);
+		if (newDistance >= currentDistance) {
+		    switchDirection();
+		    return;
 		}
 	    }
 	}
-	// Make sure that the mouse moves in a valid (the best) direction
-	if (!validDirections.isEmpty()) {
+	java.util.List<Direction> validDirections = new java.util.ArrayList<>();
+	Direction bestDirection = null;
+	int bestDistanceChange = -1; // Away from player
+
+	for (Direction dir : Direction.values()) {
+	    Direction originalDirection = getDirection();
+	    setDirection(dir);
+	    setCollisionOn(false);
+	    gamePanel.collisionControll.checkTile(this);
+
+	    if (!isCollisionOn()) {
+		validDirections.add(dir);
+		int newMapX = getMapX();
+		int newMapY = getMapY();
+		switch (dir) {
+		    case UP:
+			newMapY -= getSpeed();
+			break;
+		    case DOWN:
+			newMapY += getSpeed();
+			break;
+		    case LEFT:
+			newMapX -= getSpeed();
+			break;
+		    case RIGHT:
+			newMapX += getSpeed();
+			break;
+		}
+		int newCol = newMapX / GamePanel.TILE_SIZE;
+		int newRow = newMapY / GamePanel.TILE_SIZE;
+		int distance = Math.abs(newCol - playerCol) + Math.abs(newRow - playerRow);
+		int changeInDistance = distance - currentDistance;
+
+		if (changeInDistance > bestDistanceChange || (bestDistanceChange <= 0 && changeInDistance >= 0)) {
+		    bestDistanceChange = changeInDistance;
+		    bestDirection = dir;
+		}
+	    }
 	    setDirection(bestDirection);
-	    switchDirection();
+	}
+	if (!validDirections.isEmpty()) {
+	    Direction newDirection;
+	    if (bestDistanceChange > currentDistance) {
+		newDirection = bestDirection;
+	    } else {
+		Random random = new Random();
+		newDirection = validDirections.get(random.nextInt(validDirections.size()));
+	    }
+	    setDirection(newDirection);
+	    setCollisionOn(false);
+	    gamePanel.collisionControll.checkTile(this);
+	    if (!isCollisionOn()) {
+		switchDirection();
+	    }
 	}
     }
 
