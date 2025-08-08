@@ -46,7 +46,6 @@ public class Mouse extends Entity {
 	int currentDistance = Math.abs(mouseCol - playerCol) + Math.abs(mouseRow - playerRow);
 
 	if (getDirection() != null) {
-	    Direction originalDirection = getDirection();
 	    setCollisionOn(false);
 	    gamePanel.collisionControll.checkTile(this);
 	    if (!isCollisionOn()) {
@@ -80,7 +79,6 @@ public class Mouse extends Entity {
 	int bestDistanceChange = -1; // Away from player
 
 	for (Direction dir : Direction.values()) {
-	    Direction originalDirection = getDirection();
 	    setDirection(dir);
 	    setCollisionOn(false);
 	    gamePanel.collisionControll.checkTile(this);
