@@ -21,7 +21,7 @@ public class Mouse extends Entity {
 	setSolidArea(new Rectangle(8, 16, 32, 32));
 	Random random = new Random();
 	setSpeed(2);
-	getMouseImage();
+	loadMouseImage();
 	setDefaultValues();
     }
 
@@ -150,7 +150,7 @@ public class Mouse extends Entity {
     /**
      * Loads mouse image from resources
      */
-    public void getMouseImage() {
+    public void loadMouseImage() {
 	try {
 	    mouse1 = loadImage("/images/mouse/Mouse.png");
 	} catch (IOException e) {

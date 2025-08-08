@@ -21,14 +21,14 @@ public class TileManager {
 	this.gamePanel = gamePanel;
 	tile = new Tile[4];	// We have 4 type of tiles (grass, water, wood and brick)
 	mapTileNum = new int[GamePanel.MAX_WORLD_COL][GamePanel.MAX_WORLD_ROW];
-	getTile();
+	loadTile();
 	loadMap();
     }
 
     /**
      * Loads the tile images from resources
      */
-    public void getTile() {
+    public void loadTile() {
 	try {
 	    tile[0] = new Tile("/images/tiles/grass.png", false);
 	    tile[1] = new Tile("/images/tiles/Brick.png", true);
