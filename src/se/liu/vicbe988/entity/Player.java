@@ -26,7 +26,7 @@ public class Player extends Entity {
 	screenY = GamePanel.SCREEN_HEIGHT / 2 - (GamePanel.TILE_SIZE / 2);
 	setSolidArea(new Rectangle(8, 16, 32, 32)); // solid area for player, solid square at the bottom of the player
 	setDefaultValues();
-	getCatImage();
+	loadCatImage();
     }
 
     public int getScreenX() {
@@ -138,7 +138,7 @@ public class Player extends Entity {
     /**
      * Loads the cat images from resources
      */
-    public void getCatImage() {
+    public void loadCatImage() {
 	try {
 	    up1 = loadImage("/images/player/Up1.png");
 	    up2 = loadImage("/images/player/Up2.png");
