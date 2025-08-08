@@ -1,0 +1,30 @@
+Jag fick dessa kompletteringar/ tips:
+
+=============================================================================
+Kommentarer, examinator
+=============================================================================
+Koden har många SEVERE-varningar av typ exceptions::AutoCloseableResource.  De kan du bli av med genom att skapa en statisk hjälpmetod för att ladda in bilder, som tar sökvägen till en bild och använder try-with-resources (https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html) för att öppna en ström och sedan läsa en bild från den.
+Gjorde en statisk hjälpmetod för att ladda bilder med try-with-resources och blev därmed av med de varningarna.
+Där kan du också kolla om ImageIO.read() returnerar null och t.ex. avsluta programmet om det händer, eftersom du inte kan gå vidare utan de bilder som trots allt skulle finnas där som en del av programmet.  Det gör också att du blir av med java::SignalsErrorsThroughReturnValues och programming::DataFlowIssueMaybe.
+- Gjorde så att programmet avslutas vid null-bild vid inläsning.
+Om du får IOException när du ska läsa in en bild som resurs är det också bättre att avsluta (System.exit) så att det inte blir konstiga och svårtolkade följdfel senare när pekare är null.
+- Lade till System.exit vid IOException vid bildladdning.
+En Tile skulle kunna ta sökvägen till en bild som parameter till konstruktorn, liksom collision-värde (true/false).
+- Lade till en statisk hjälpmetod för att ladda bilder med try-with-resources.
+Se också GetterShouldReturn.
+- Fixad genom att byta namn på getfunktioner som inte var en typisk get funktion (till ex. load.. istället).
+
+=============================================================================
+Kommentarer, handledare 1
+=============================================================================
+General comments:
+It's a quite basic but playable game. It would be nice to be able to quickly restart it.
+- Lade till möjlighet att starta om spelet genom att trycka på R när man fångat musen.
+There seems to be an issue with the left of the map - the mouse never reaches the wall.
+- Fixade så att musen kan nå vänstra väggen.
+It's good that you load a map from a file, but it's probably better not to put it with images.
+- Flyttade kartfilen till resources/maps/.
+The inspection report requires more looking into. There are plenty of warnings still to address. Make sure you take advantage of the report to improve your project and the code.
+- Åtgärdade de flesta severe-varningarna i inspectionsrapporten.
+The project in its current state is a good start, but more work is needed.
+- Finslipade och förbättrade vissa delar av koden ytterligare.
