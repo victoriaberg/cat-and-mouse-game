@@ -31,6 +31,14 @@ public class Mouse extends Entity {
 	setDirection(Direction.UP);
     }
 
+    private int calculateManhattanDistance(int x1, int y1, int x2, int y2) {
+	int col1 = x1 / GamePanel.TILE_SIZE;
+	int row1 = y1 / GamePanel.TILE_SIZE;
+	int col2 = x2 / GamePanel.TILE_SIZE;
+	int row2 = y2 / GamePanel.TILE_SIZE;
+	return Math.abs(col1 - col2) + Math.abs(row1 - row2);
+    }
+
     /**
      * Switches the mouse direction
      */
@@ -39,11 +47,9 @@ public class Mouse extends Entity {
 	if (gameState.hasWon()) {
 	    return;
 	}
-	int playerCol = gamePanel.player.getMapX() / GamePanel.TILE_SIZE;
-	int playerRow = gamePanel.player.getMapY() / GamePanel.TILE_SIZE;
-	int mouseCol = getMapX() / GamePanel.TILE_SIZE;
-	int mouseRow = getMapY() / GamePanel.TILE_SIZE;
-	int currentDistance = Math.abs(mouseCol - playerCol) + Math.abs(mouseRow - playerRow);
+	int playerCol = gamePanel.player.getMapX();
+	int playerRow = gamePanel.player.getMapY();
+	int currentDistance = calculateManhattanDistance(getMapX(), getMapY(), playerCol, playerRow);
 
 	if (getDirection() != null) {
 	    setCollisionOn(false);
@@ -65,9 +71,7 @@ public class Mouse extends Entity {
 			newMapX += getSpeed();
 			break;
 		}
-		int newCol = newMapX / GamePanel.TILE_SIZE;
-		int newRow = newMapY / GamePanel.TILE_SIZE;
-		int newDistance = Math.abs(newCol - playerCol) + Math.abs(newRow - playerRow);
+		int newDistance = calculateManhattanDistance(newMapX, newMapY, playerCol, playerRow);
 		if (newDistance >= currentDistance) {
 		    switchDirection();
 		    return;
@@ -101,10 +105,8 @@ public class Mouse extends Entity {
 			newMapX += getSpeed();
 			break;
 		}
-		int newCol = newMapX / GamePanel.TILE_SIZE;
-		int newRow = newMapY / GamePanel.TILE_SIZE;
-		int distance = Math.abs(newCol - playerCol) + Math.abs(newRow - playerRow);
-		int changeInDistance = distance - currentDistance;
+		int newDistance = calculateManhattanDistance(newMapX, newMapY, playerCol, playerRow);
+		int changeInDistance = newDistance - currentDistance;
 
 		if (changeInDistance > bestDistanceChange || (bestDistanceChange <= 0 && changeInDistance >= 0)) {
 		    bestDistanceChange = changeInDistance;
