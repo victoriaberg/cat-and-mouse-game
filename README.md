@@ -2,6 +2,17 @@
 
 A 2D tile-based game developed in Java as a school project. This project demonstrates strong proficiency in Object-Oriented Design (OOD) and handling low-level game mechanics, including user input and collision logic.
 
+## Overview
+
+When starting the game, the mouse will start to run away from the player (cat).
+<img width="769" height="596" alt="image" src="https://github.com/user-attachments/assets/12775482-7e6c-482c-a0ba-4f6e7d877bfb" />
+
+If you try to run into walls (brick or wood) or water you will come to a stop due to collision.
+<img width="657" height="501" alt="image" src="https://github.com/user-attachments/assets/b3c9aafd-d96a-4b49-b1c8-29e00082fe1c" />
+
+When you catch the mouse you win and will get the option to restart the game.
+<img width="768" height="570" alt="image" src="https://github.com/user-attachments/assets/f40ffe49-0335-416a-9d4a-4357d3c75cf4" />
+
 
 ## Key Features
 
